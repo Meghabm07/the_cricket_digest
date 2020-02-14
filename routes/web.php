@@ -12,9 +12,55 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    if (auth()->check()) {
+        return redirect('/dashboard');
+    }
+    return view('auth.login');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+/**
+ *  User Route Group
+ *  Namespace User: Controllers Within The "App\Http\Controllers\User" Namespace
+ *  Middleware Auth : Only Authenticated Users can access this Route group
+ */
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::namespace('Dashboard')->prefix('dashboard')->name('dashboard.')->group(function () {
+
+        Route::get('/', 'DashboardController@index')->name('index');
+    });
+
+    Route::namespace('Category')->prefix('category')->name('category.')->group(function () {
+
+        Route::get('/', 'CategoryController@index')->name('index');
+
+        Route::get('/create', 'CategoryController@create')->name('create');
+
+        Route::post('/', 'CategoryController@store')->name('store');
+
+        Route::get('/{category}', 'CategoryController@edit')->name('edit');
+
+        Route::put('/{category}', 'CategoryController@update')->name('update');
+
+        Route::delete('/', 'CategoryController@destroy')->name('delete');
+    });
+
+    Route::namespace('Product')->prefix('product')->name('product.')->group(function () {
+
+        Route::get('/', 'ProductController@index')->name('index');
+
+        Route::get('/create', 'ProductController@create')->name('create');
+
+        Route::post('/', 'ProductController@store')->name('store');
+
+        Route::get('/{product}', 'ProductController@edit')->name('edit');
+
+        Route::put('/{product}', 'ProductController@update')->name('update');
+
+        Route::delete('/', 'ProductController@destroy')->name('delete');
+    });
+});
