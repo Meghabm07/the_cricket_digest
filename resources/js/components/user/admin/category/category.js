@@ -1,37 +1,68 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Table from './subcomponents/table';
-import { BrowserRouter } from 'react-router-dom';
+import Form from './subcomponents/form';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { activeToaster } from '../../../../utilities/alerts';
 
 export default class Category extends Component {
-	// constructor(props) {
-	// 	super(props);
-	// 	this.state = { date: new Date() };
-	// }
-	// componentDidMount() {
-	// 	this.timerID = setInterval(() => this.tick(), 1000);
-	// }
-
-	componentWillUnmount() {
-		clearInterval(this.timerID);
+	constructor(props) {
+		super(props);
+		this.state = {
+			formActive: false,
+			formEditType: false,
+			editFormActive: false,
+			editCategoryId: '',
+			categoryData: []
+		};
+		this.activateEditForm = this.activateEditForm.bind(this);
+		this.activeAddCategoryForm = this.activeAddCategoryForm.bind(this);
+		this.closeForm = this.closeForm.bind(this);
 	}
 
-	// tick() {
-	// 	this.setState({
-	// 		date: new Date()
-	// 	});
-	// }
+	activeAddCategoryForm() {
+		this.setState({ formActive: true });
+	}
+
+	closeForm() {
+		this.setState({ formActive: false, editCategoryId: '', editFormActive: false });
+	}
+
+	activateEditForm(categoryId) {
+		this.setState({ editFormActive: true, editCategoryId: categoryId, formActive: true });
+	}
+
 	render() {
+		const isFormActive = this.state.formActive;
+		let component;
+
+		if (isFormActive) {
+			component = (
+				<Form
+					categoryId={this.state.editCategoryId}
+					editFormActive={this.state.editFormActive}
+					onActiveToster={activeToaster}
+					closeForm={this.closeForm}
+				/>
+			);
+		} else {
+			component = (
+				<Table
+					onActiveEditForm={this.activateEditForm}
+					onActiveToster={activeToaster}
+					onAddCategory={this.activeAddCategoryForm}
+				/>
+			);
+		}
+
 		return (
-			<BrowserRouter>
-				<div>
-					<div className="pt-5 row">
-						<div className="col-12">
-							<Table />
-						</div>
-					</div>
+			<div>
+				<ToastContainer enableMultiContainer containerId={'B'} position={toast.POSITION.TOP_RIGHT} />
+				<div className="row pt-5">
+					<div className="col-md-11 m-auto">{component}</div>
 				</div>
-			</BrowserRouter>
+			</div>
 		);
 	}
 }

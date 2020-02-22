@@ -1,114 +1,169 @@
 import React, { Component } from 'react';
+import ConfirmDelete from './confirmdelete';
+import Pagination from '../../../../../utilities/pagination';
+import TableDataSearch from '../../../../../utilities/tabledatasearch';
+class Table extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			categoryData: [],
+			rowsCount: 10,
+			keywords: '',
+			categoryId: '',
+			pagination: {
+				current_page: 1,
+				last_page: 1
+			}
+		};
+		this.activeCreateForm = this.activeCreateForm.bind(this);
+		this.onSearch = this.onSearch.bind(this);
+		this.getCategoryData = this.getCategoryData.bind(this);
+		this.onRowCountChange = this.onRowCountChange.bind(this);
+		this.openEditForm = this.openEditForm.bind(this);
+		this.openConfirmModal = this.openConfirmModal.bind(this);
+		this.setNewPage = this.setNewPage.bind(this);
+	}
 
-export default class table extends Component {
+	getCategoryData() {
+		const url = '/category/list';
+		var rowsCountData = this.state.rowsCount;
+		var keywordsData = this.state.keywords;
+		axios
+			.get(url, {
+				params: {
+					page: this.state.pagination.current_page,
+					rowsCount: rowsCountData,
+					keywords: keywordsData
+				}
+			})
+			.then((response) => {
+				this.setState({ categoryData: response.data });
+				this.setState({
+					pagination: {
+						current_page: response.data.current_page,
+						last_page: response.data.last_page
+					}
+				});
+			})
+			.catch((error) => {
+				console.log(error.response.data);
+			});
+	}
+
+	openEditForm(id) {
+		this.props.onActiveEditForm(id);
+	}
+
+	componentDidMount() {
+		this.getCategoryData();
+	}
+
+	activeCreateForm() {
+		this.props.onAddCategory();
+	}
+
+	openConfirmModal(id) {
+		this.setState({ categoryId: id });
+		$('#confirmModel').modal('show');
+	}
+
+	onSearch(event) {
+		this.setState({ keywords: event.target.value }, this.getCategoryData);
+	}
+
+	onRowCountChange() {
+		this.setState({ rowsCount: event.target.value }, this.getCategoryData);
+	}
+
+	setNewPage(newPage) {
+		this.setState(
+			{
+				pagination: {
+					current_page: newPage
+				}
+			},
+			this.getCategoryData
+		);
+	}
 	render() {
+		var categoryDetails = this.state.categoryData.data;
+		var rows;
+		if (categoryDetails != undefined) {
+			if (categoryDetails.length != 0) {
+				rows = (
+					<tbody>
+						{categoryDetails.map((category, i) => {
+							return (
+								<tr key={i}>
+									<td>{i + 1}.</td>
+									<td>{category.name}</td>
+									<td>
+										<img src={category.image} alt="" width="50" height="50" />
+									</td>
+									<td>{category.description}</td>
+									<td>
+										<a onClick={() => this.openEditForm(category.id)}>
+											<i className="fas fa-edit" />
+										</a>
+									</td>
+									<td>
+										<a onClick={() => this.openConfirmModal(category.id)}>
+											<i className="fas fa-trash" />
+										</a>
+										<ConfirmDelete
+											activeToaster={this.props.onActiveToster}
+											categoryId={this.state.categoryId}
+										/>
+									</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				);
+			} else if (categoryDetails.length == 0) {
+				rows = (
+					<tbody>
+						<tr>
+							<td colSpan="6" className="text-info text-bold text-center">
+								No Data
+							</td>
+						</tr>
+					</tbody>
+				);
+			}
+		}
+
 		return (
 			<div className="container-fluid">
-				<div className="row">
+				<div className="row ">
 					<div className="col-md-12">
 						<div className="card">
 							<div className="card-header">
-								<div className="row">
-									<div className="col-md-9">
-										<h3 className="card-title">Bordered Table</h3>
-									</div>
-									<div className="col-md-3 text-right">
-										<button type="button" className="btn btn-success btn-sm">
-											Add New Product
-										</button>
-									</div>
+								<div>
+									<TableDataSearch
+										onSearch={this.onSearch}
+										onRowCountChange={this.onRowCountChange}
+										activeCreateForm={this.activeCreateForm}
+									/>
 								</div>
 							</div>
-							<div className="card-body">
-								<table className="table table-bordered">
+							<div className="card-body table-responsive">
+								<table className="table  table-hover table-bordered">
 									<thead>
 										<tr>
 											<th>#</th>
-											<th>Task</th>
-											<th>Progress</th>
-											<th>Label</th>
+											<th>Name</th>
+											<th>Image</th>
+											<th>Description</th>
+											<th>Edit</th>
+											<th>Delete</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td>1.</td>
-											<td>Update software</td>
-											<td>
-												<div className="progress progress-xs">
-													<div className="progress-bar progress-bar-danger" />
-												</div>
-											</td>
-											<td>
-												<span className="badge bg-danger">55%</span>
-											</td>
-										</tr>
-										<tr>
-											<td>2.</td>
-											<td>Clean database</td>
-											<td>
-												<div className="progress progress-xs">
-													<div className="progress-bar bg-warning" />
-												</div>
-											</td>
-											<td>
-												<span className="badge bg-warning">70%</span>
-											</td>
-										</tr>
-										<tr>
-											<td>3.</td>
-											<td>Cron job running</td>
-											<td>
-												<div className="progress progress-xs progress-striped active">
-													<div className="progress-bar bg-primary" />
-												</div>
-											</td>
-											<td>
-												<span className="badge bg-primary">30%</span>
-											</td>
-										</tr>
-										<tr>
-											<td>4.</td>
-											<td>Fix and squish bugs</td>
-											<td>
-												<div className="progress progress-xs progress-striped active">
-													<div className="progress-bar bg-success" />
-												</div>
-											</td>
-											<td>
-												<span className="badge bg-success">90%</span>
-											</td>
-										</tr>
-									</tbody>
+									{rows}
 								</table>
 							</div>
 							<div className="card-footer clearfix">
-								<ul className="pagination pagination-sm m-0 float-right">
-									<li className="page-item">
-										<a className="page-link" href="#">
-											&laquo;
-										</a>
-									</li>
-									<li className="page-item">
-										<a className="page-link" href="#">
-											1
-										</a>
-									</li>
-									<li className="page-item">
-										<a className="page-link" href="#">
-											2
-										</a>
-									</li>
-									<li className="page-item">
-										<a className="page-link" href="#">
-											3
-										</a>
-									</li>
-									<li className="page-item">
-										<a className="page-link" href="#">
-											&raquo;
-										</a>
-									</li>
-								</ul>
+								<Pagination pagination={this.state.pagination} setPage={this.setNewPage} />
 							</div>
 						</div>
 					</div>
@@ -117,3 +172,5 @@ export default class table extends Component {
 		);
 	}
 }
+
+export default Table;

@@ -38,15 +38,15 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/', 'CategoryController@index')->name('index');
 
-        Route::get('/create', 'CategoryController@create')->name('create');
-
         Route::post('/', 'CategoryController@store')->name('store');
+
+        Route::get('/list', 'CategoryController@list')->name('list');
 
         Route::get('/{category}', 'CategoryController@edit')->name('edit');
 
-        Route::put('/{category}', 'CategoryController@update')->name('update');
+        Route::post('/{category}', 'CategoryController@update')->name('update');
 
-        Route::delete('/', 'CategoryController@destroy')->name('delete');
+        Route::delete('/{category}', 'CategoryController@destroy')->name('delete');
     });
 
     Route::namespace('Product')->prefix('product')->name('product.')->group(function () {

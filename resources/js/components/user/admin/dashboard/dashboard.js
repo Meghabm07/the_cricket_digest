@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Breadcrum from '../utilities/breadcrum.js';
 import ReportCard from './subcomponents/reportcards';
 import Todolist from './subcomponents/todolist.js';
 import Calender from './subcomponents/calender.js';
@@ -8,8 +7,7 @@ import Calender from './subcomponents/calender.js';
 export default class Dashboard extends Component {
 	render() {
 		return (
-			<div>
-				<Breadcrum />
+			<div className="p-4">
 				<section className="content">
 					<div className="container-fluid">
 						<ReportCard />

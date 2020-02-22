@@ -9,14 +9,15 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-// .login-page {
-//     background-image: linear-gradient(to right, red, yellow);
-//     ;
-//     background-repeat: no-repeat !important;
-//     background-size: cover !important;
-// }
-// .register-page {
-//     background-image: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80');
-//     background-repeat: no-repeat;
-//     background-size: cover;
-// }
+.Toastify__toast--success {
+    color: #fff !important;
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+.w-40 {
+    width: 40% !important;
+}
+.w-30 {
+    width: 30% !important;
+}

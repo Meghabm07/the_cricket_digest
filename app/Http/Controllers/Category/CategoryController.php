@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Category;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Admin\Category\CategoryModel;
+use App\Http\Requests\Category\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -29,35 +32,68 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        try {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalName();
+            // Storage::putFileAs('/images/category', $image, $imageName);
+            $image->move(public_path('storage/images/category/'), $imageName);
+
+            CategoryModel::create([
+                'name' => $request->name,
+                'image' => $imageName,
+                'description' => $request->description,
+            ]);
+            return response()->json(['message' => 'Category Created Successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Something went wrong'], 404);
+        }
     }
 
     /**
-     * Display the specified resource.
+     * Display the all resources.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function list(Request $request)
     {
-        //
+        if ($request->keywords !== '') 
+        {
+            $categoryDatas = CategoryModel::where('name', 'like', '%' . $request->keywords . '%')
+                                            ->latest()
+                                            ->paginate($request->rowsCount);
+
+            foreach ($categoryDatas as $category) 
+            {
+                $category->image = Storage::url('images/category/' . $category->image);
+            }
+        } 
+        else 
+        {
+            $categoryDatas = CategoryModel::latest()
+                                            ->paginate($request->rowsCount);
+
+            foreach ($categoryDatas as $category) 
+            {
+                $category->image = Storage::url('images/category/' . $category->image);
+            }
+        }
+
+        if (!empty($categoryDatas)) 
+        {
+            return $categoryDatas;
+        } 
+        else 
+        {
+            return response()->json(['error' => 'Data not found'], 404);
+        }
     }
 
     /**
@@ -66,9 +102,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(CategoryModel $category)
     {
-        //
+        if ($category) {
+            return $category;
+        } else {
+            return response()->json(['error' => 'Data not found'], 404);
+        }
     }
 
     /**
@@ -78,9 +118,37 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, CategoryModel $category)
     {
-        //
+        try {
+
+            if ($request->hasFile('image')) {
+                try {
+
+                    Storage::delete('images/category/' . $category->image);
+
+                    $image = $request->file('image');
+                    $imageName = time() . '.' . $image->getClientOriginalName();
+                    // Storage::putFileAs('/images/category', $image, $imageName);
+                    $image->move(public_path('storage/images/category/'), $imageName);
+
+                    $imageFileName = $imageName;
+                } catch (\Exception $e) {
+                    return response()->json(['error' => 'Sorry ! Something went wrong']);
+                }
+            } else {
+                $imageFileName = $category->image;
+            }
+
+            $category->update([
+                'name' => $request->name,
+                'image' => $imageFileName,
+                'description' => $request->description,
+            ]);
+            return response()->json(['message' => 'Category Updated Successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Something went wrong'], 404);
+        }
     }
 
     /**
@@ -89,8 +157,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CategoryModel $category)
     {
-        //
+        try {
+            Storage::delete('images/category/' . $category->image);
+            $category->delete();
+            return response()->json(['message' => 'Category Deleted Successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Something Went Wrong'], 404);
+        }
     }
 }
