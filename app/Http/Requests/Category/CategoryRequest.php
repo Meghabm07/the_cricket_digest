@@ -26,21 +26,16 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         $rules = [
-
-
             'description' => [
                 'required',
                 'max:5000'
             ],
-
-
         ];
 
         if (Input::get('method') == 'post') {
             $rules['name'] =  [
                 'required',
                 'unique:category,name',
-                "regex:/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/"
             ];
             $rules['image'] = [
                 'required',
@@ -55,7 +50,6 @@ class CategoryRequest extends FormRequest
             $rules['name'] =  [
                 'unique:category,name,' . $this->category->id,
                 'required',
-                "regex:/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/"
             ];
         }
         return $rules;

@@ -1,0 +1,23 @@
+.single__article__title {
+    color: $light-black;
+    font-weight: bold;
+    padding-bottom: 1rem;
+}
+
+.single__article__content {
+    margin-bottom: 3rem;
+    img {
+        width: 100%;
+    }
+    iframe {
+        height: 500px;
+        width: 100%;
+    }
+}
+
+@media(max-width:400px) {
+    .single__article__content iframe {
+        height: 200px;
+        width: 100%;
+    }
+}

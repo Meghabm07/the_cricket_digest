@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,10 +14,9 @@
 |
 */
 
-Route::get('/', function () {
-
+Route::get('/login', function () {
     if (auth()->check()) {
-        return redirect('/dashboard');
+        return redirect('/admin/dashboard');
     }
     return view('auth.login');
 });
@@ -22,16 +24,16 @@ Route::get('/', function () {
 Auth::routes();
 
 /**
- *  User Route Group
- *  Namespace User: Controllers Within The "App\Http\Controllers\User" Namespace
+ *  Admin Route Group
  *  Middleware Auth : Only Authenticated Users can access this Route group
  */
 
-Route::middleware(['auth'])->group(function () {
+Route::namespace('Admin')->middleware(['auth'])->name('admin.')->prefix('admin')->group(function () {
 
     Route::namespace('Dashboard')->prefix('dashboard')->name('dashboard.')->group(function () {
-
         Route::get('/', 'DashboardController@index')->name('index');
+
+        Route::get('/total-count', 'DashboardController@totalCounts')->name('totalCounts');
     });
 
     Route::namespace('Category')->prefix('category')->name('category.')->group(function () {
@@ -49,18 +51,72 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{category}', 'CategoryController@destroy')->name('delete');
     });
 
-    Route::namespace('Product')->prefix('product')->name('product.')->group(function () {
+    Route::namespace('Blog')->prefix('blog')->name('blog.')->group(function () {
 
-        Route::get('/', 'ProductController@index')->name('index');
+        Route::get('/', 'BlogController@index')->name('index');
 
-        Route::get('/create', 'ProductController@create')->name('create');
+        Route::get('/category/list', 'BlogController@getCategoryList')->name('getCategoryList');
 
-        Route::post('/', 'ProductController@store')->name('store');
+        Route::get('/list', 'BlogController@list')->name('list');
 
-        Route::get('/{product}', 'ProductController@edit')->name('edit');
+        Route::post('/', 'BlogController@store')->name('store');
 
-        Route::put('/{product}', 'ProductController@update')->name('update');
+        Route::get('/{blog}', 'BlogController@edit')->name('edit');
 
-        Route::delete('/', 'ProductController@destroy')->name('delete');
+        Route::get('/{blog}/show', 'BlogController@show')->name('show');
+
+        Route::post('/{blog}', 'BlogController@update')->name('update');
+
+        Route::delete('/{blog}', 'BlogController@destroy')->name('delete');
+
+        Route::post('/{blog}/trending', 'BlogController@updateTrending')->name('updateTrending');
     });
+
+    Route::namespace('Video')->prefix('video')->name('video.')->group(function () {
+
+        Route::get('/', 'VideoController@index')->name('index');
+
+        Route::get('/list', 'VideoController@list')->name('list');
+
+        Route::post('/', 'VideoController@store')->name('store');
+
+        Route::get('/{video}', 'VideoController@edit')->name('edit');
+
+        Route::post('/{video}', 'VideoController@update')->name('update');
+
+        Route::delete('/{video}', 'VideoController@destroy')->name('delete');
+
+        Route::post('/{video}/trending', 'VideoController@updateTrending')->name('updateTrending');
+    });
+});
+
+Route::namespace('Website')->name('website.')->group(function () {
+
+    Route::get('/', 'WebsiteController@homePage')->name('homePage');
+
+    Route::get('/article/{blog}', 'WebsiteController@articlePage')->name('articlePage');
+
+    Route::get('/category/{category}', 'WebsiteController@categoryPage')->name('categoryPage');
+
+    Route::get('/all-articles', 'WebsiteController@allArticlePage')->name('allArticlePage');
+
+    Route::get('/category-list', 'WebsiteController@getCategoryList')->name('getCategoryList');
+
+    Route::get('/video/list', 'WebsiteController@getVideoList')->name('getVideoList');
+
+    Route::get('/top-headlines', 'WebsiteController@getTopHeadingList')->name('getTopHeadingList');
+
+    Route::get('/trending-videos', 'WebsiteController@getTrendingVideos')->name('getTrendingVideos');
+
+    Route::get('/random-article', 'WebsiteController@getRandomArticle')->name('getRandomArticle');
+
+    Route::get('/lastet-article', 'WebsiteController@getLatestArticle')->name('getLatestArticle');
+
+    Route::get('/related-article/{category}', 'WebsiteController@getRelatedArticle')->name('getRelatedArticle');
+
+    Route::get('/category-article', 'WebsiteController@getcategoryWiseArticle')->name('getcategoryWiseArticle');
+
+    Route::get('/article/{blog}/show', 'WebsiteController@getArticle')->name('getArticle');
+
+    Route::get('/search-article', 'WebsiteController@getAllArticle')->name('getAllArticle');
 });

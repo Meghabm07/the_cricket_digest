@@ -11,9 +11,11 @@ const mix = require("laravel-mix");
  |
  */
 
-mix.react("resources/js/app.js", "public/js")
-    .sass("resources/sass/app.scss", "public/css")
-    .browserSync("laravel_with_react.com");
+mix.react("resources/js/admin/app.js", "public/js/admin")
+    .sass("resources/sass/admin/app.scss", "public/css/admin")
+    .react("resources/js/website/app.js", "public/js/website")
+    .sass("resources/sass/website/app.scss", "public/css/website")
+    .browserSync("the-cricket-digest.com");
 
 if (mix.inProduction()) {
     mix.version();

@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&family=Roboto:wght@100;300;400&display=swap');
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import './utilities/variable.scss';
+@import './layouts/header.scss';
+@import './layouts/footer.scss';
+@import './pages/homepage.scss';
+@import './pages/singlearticle.scss';
+@import './pages/allarticles.scss';
+@import './main.scss';
