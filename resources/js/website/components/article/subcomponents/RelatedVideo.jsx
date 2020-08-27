@@ -2,32 +2,26 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 import "../../../../../../node_modules/slick-carousel/slick/slick.css";
 import "../../../../../../node_modules/slick-carousel/slick/slick-theme.css";
-import ViewVideo from "../../viewvideo/ViewVideo";
 
-export default class TrendingVideos extends Component {
+export default class RelatedVideo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            videoData: [],
-            viewVideoData: []
+            relatedVideos: []
         };
-        this.getVideoList = this.getVideoList.bind(this);
-        this.openVideModal = this.openVideModal.bind(this);
+        this.getRelatedContent = this.getRelatedContent.bind(this);
     }
 
     componentDidMount() {
-        this.getVideoList();
+        this.getRelatedContent();
     }
-    openVideModal(video) {
-        this.setState({ viewVideoData: video });
-        // $("#viewVideo").modal("show");
-    }
-    getVideoList() {
-        const url = "/trending-videos";
+
+    getRelatedContent() {
+        const url = "/related-video/" + this.props.categoryId;
         axios
             .get(url)
             .then(response => {
-                this.setState({ videoData: response.data });
+                this.setState({ relatedVideos: response.data });
             })
             .catch(error => {
                 console.log(error.response.data);
@@ -71,22 +65,22 @@ export default class TrendingVideos extends Component {
         };
 
         return (
-            <div className="trending__videos">
-                <div className="row">
-                    <div className="col-12">
-                        <h5 className="font-weight-bold category__title">
-                            Trending Videos
-                        </h5>
+            <div>
+                {this.state.relatedVideos.length > 0 ? (
+                    <div className="row">
+                        <div className="col-12">
+                            <h5 className="font-weight-bold category__title">
+                                Related Videos
+                            </h5>
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    ""
+                )}
                 <Slider {...settings}>
-                    {this.state.videoData.map((video, i) => {
+                    {this.state.relatedVideos.map((video, i) => {
                         return (
-                            <a
-                                onClick={() => this.openVideModal(video)}
-                                className="article__card"
-                                key={i}
-                            >
+                            <a className="article__card" key={i}>
                                 <div className="card" key={i}>
                                     <iframe
                                         src={video.video_url}
@@ -103,9 +97,6 @@ export default class TrendingVideos extends Component {
                         );
                     })}
                 </Slider>
-                {/**
-             <ViewVideo videoData={this.state.viewVideoData} />
-            */}
             </div>
         );
     }

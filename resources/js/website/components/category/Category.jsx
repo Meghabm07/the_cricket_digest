@@ -35,7 +35,7 @@ export default class Category extends Component {
         return (
             <div className="container-fluid">
                 <TrendingVideos />
-                <div className="row mt-5">
+                <div className="row mt-3">
                     <div className="col-lg-9 col-md-8 col-sm-12">
                         <div className="row">
                             <div className="col-12">

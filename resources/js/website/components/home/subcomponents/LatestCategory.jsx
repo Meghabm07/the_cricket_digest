@@ -1,24 +1,24 @@
 import React, { Component } from "react";
 
-export default class MainArticle extends Component {
+export default class LatestCategory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            latestArticleData: []
+            categoryData: []
         };
-        this.getLatestArticle = this.getLatestArticle.bind(this);
+        this.getCategoryList = this.getCategoryList.bind(this);
     }
 
     componentDidMount() {
-        this.getLatestArticle();
+        this.getCategoryList();
     }
 
-    getLatestArticle() {
-        const url = "/lastet-article";
+    getCategoryList() {
+        const url = "/category-list";
         axios
             .get(url)
             .then(response => {
-                this.setState({ latestArticleData: response.data });
+                this.setState({ categoryData: response.data });
             })
             .catch(error => {
                 console.log(error.response.data);
@@ -28,22 +28,23 @@ export default class MainArticle extends Component {
     render() {
         return (
             <div>
-                {this.state.latestArticleData.map((article, i) => {
+                {this.state.categoryData.map((category, i) => {
                     return (
                         <a
-                            target="_blank"
-                            href={`/article/${article.id}`}
+                            href={`/category/${category.id}`}
                             className="article__card"
                             key={i}
                         >
-                            <div className="card ">
+                            <div className="card mt-4">
                                 <img
                                     className="card-img-top p-3"
-                                    src={article.image}
+                                    src={category.image}
                                     alt=""
                                 />
-                                <div className="card-body">
-                                    <h5>{article.name}</h5>
+                                <div className="card-body d-flex align-items-center ">
+                                    <h5 className="card-title mb-0">
+                                        {category.name}
+                                    </h5>
                                 </div>
                             </div>
                         </a>

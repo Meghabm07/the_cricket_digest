@@ -32,9 +32,24 @@ class WebsiteController extends Controller
         return view('website.allarticle.index');
     }
 
+    public function allVideoPage()
+    {
+        return view('website.allvideo.index');
+    }
+
     public function getCategoryList()
     {
-        return Category::select('id', 'name')->latest('created_at')->get();
+        $categories = Category::whereNotIn('id', array(1, 2, 3))->latest('created_at')->get();
+
+        $data = [];
+
+        foreach ($categories as $key => $category) {
+            $data[$key]['id'] = $category->id;
+            $data[$key]['name'] = $category->name;
+            $data[$key]['image'] = Storage::url('images/category/' . $category->image);
+        }
+
+        return $data;
     }
 
     public function getVideoList()
@@ -124,6 +139,21 @@ class WebsiteController extends Controller
         return $data;
     }
 
+    public function getRelatedVideo(Category $category)
+    {
+        $videos = $category->videos;
+
+        $data = [];
+
+        foreach ($videos as $key => $video) {
+            $data[$key]['id'] = $video->id;
+            $data[$key]['name'] = $video->name;
+            $data[$key]['video_url'] = $video->video_url;
+            $data[$key]['date'] = Carbon::createFromTimeStamp(strtotime($video->created_at))->diffForHumans();
+        }
+        return $data;
+    }
+
     public function getLatestArticle()
     {
         $blogs = Blogs::latest('created_at')->take(3)->get();
@@ -164,11 +194,33 @@ class WebsiteController extends Controller
     }
 
 
+    public function getcategoryWiseVideo()
+    {
+        $videos = Videos::all();
+
+        $data = [];
+
+        foreach ($videos as $key => $video) {
+            $data[$key]['id'] = $video->id;
+            $data[$key]['name'] = $video->name;
+            $data[$key]['category_name'] = $video->category->name;
+            $data[$key]['user'] = $video->user->name;
+            $data[$key]['video_url'] = $video->video_url;
+            $data[$key]['date'] = Carbon::createFromTimeStamp(strtotime($video->created_at))->diffForHumans();
+        }
+
+        $data = $this->groupBy('category_name', $data);
+
+        return $data;
+    }
+
+
     public function getArticle(Blogs $blog)
     {
 
         $data['id'] = $blog->id;
         $data['name'] = $blog->name;
+        $data['main_name'] = $blog->main_name;
         $data['category_name'] = $blog->category->name;
         $data['content'] = $blog->content;
         $data['image'] = Storage::url('images/blog/' . $blog->image);
@@ -178,9 +230,18 @@ class WebsiteController extends Controller
         return $data;
     }
 
-    public function getAllArticle()
+    public function getAllArticle(Request $request)
     {
-        return Blogs::select('id', 'name')->get();
+        $blogDatas = [];
+
+        if ($request->keywords !== '') {
+            $blogDatas = Blogs::where('name', 'like', '%' . $request->keywords . '%')
+                ->get();
+        } else {
+            $blogDatas = Blogs::get();
+        }
+
+        return $blogDatas;
     }
 
     /**

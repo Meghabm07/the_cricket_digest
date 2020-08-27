@@ -8,12 +8,17 @@ export default class SearchBar extends Component {
         this.state = {
             articles: []
         };
-        this.redirect = this.redirect.bind(this);
+        this.onSearch = this.onSearch.bind(this);
     }
-    componentDidMount() {
+    componentDidMount() {}
+
+    onSearch(event) {
+        var data = {
+            keywords: event.target.value
+        };
         const url = "/search-article";
         axios
-            .get(url)
+            .post(url, data)
             .then(response => {
                 this.setState({
                     articles: response.data
@@ -24,24 +29,47 @@ export default class SearchBar extends Component {
             });
     }
 
-    redirect(value) {
-        window.location.href = "/article/" + value[0].id;
-    }
-
     render() {
+        var ui;
+        if (this.state.articles.length > 0) {
+            ui = (
+                <ul className="results">
+                    {this.state.articles.map((article, i) => {
+                        return (
+                            <li key={i}>
+                                <a href={`/article/${article.id}`}>
+                                    {article.name.substr(0, 40)} ...
+                                </a>
+                            </li>
+                        );
+                    })}
+                </ul>
+            );
+        } else {
+            ui = (
+                <ul className="results">
+                    <li className="p-2">
+                        <a href="#">Article not found</a>
+                    </li>
+                </ul>
+            );
+        }
         return (
-            <Select
-                options={this.state.articles}
-                separator={true}
-                name="Search Blogs..."
-                labelField="name"
-                color="#E01C2A"
-                searchable={true}
-                loading={true}
-                searchBy="name"
-                valueField="id"
-                onChange={values => this.redirect(values)}
-            />
+            <div className="box">
+                <div className="container-2 d-flex flex-row-reverse">
+                    <span className="icon">
+                        <i className="fa fa-search"></i>
+                    </span>
+                    <input
+                        type="search"
+                        className="form-control"
+                        id="search"
+                        onKeyUp={() => this.onSearch(event)}
+                        placeholder="Search..."
+                    />
+                    {ui}
+                </div>
+            </div>
         );
     }
 }

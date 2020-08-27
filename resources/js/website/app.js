@@ -17,3 +17,5 @@ require("./components/article/Article.jsx");
 require("./components/allarticle/AllArticle.jsx");
 require("./components/category/Category.jsx");
 require("./components/searchbar/SearchBar.jsx");
+require("./components/videos/Video.jsx");
+require("./components/navbarcategories/NavbarCategories.jsx");

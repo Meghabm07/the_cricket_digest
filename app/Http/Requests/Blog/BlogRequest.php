@@ -32,6 +32,7 @@ class BlogRequest extends FormRequest
             'content' => [
                 'required',
             ],
+            'mainName' => 'required'
         ];
 
         if (Input::get('method') == 'post') {

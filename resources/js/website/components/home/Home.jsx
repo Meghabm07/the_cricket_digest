@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import Categories from "./subcomponents/Categories";
 import MainArticle from "./subcomponents/MainArticle";
 import RandomArticle from "./subcomponents/RandomArticle";
-import RandomVideo from "./subcomponents/RandomVideo";
+import LatestCategory from "./subcomponents/LatestCategory";
 import TopHeadings from "./subcomponents/TopHeadings";
 import TrendingVideos from "./subcomponents/TrendingVideos";
 
@@ -17,8 +17,8 @@ export default class Home extends Component {
         return (
             <div className="container-fluid">
                 <TrendingVideos />
-                <div className="row">
-                    <div className="col-lg-3 col-md-3 col-sm-12">
+                <div className="row home__articles">
+                    <div className="col-lg-3 col-md-3 col-sm-12 pt-4 categories__column">
                         <Categories />
                         <img
                             src="https://www.indiantelevision.com/advt/general/mailer/y2k13/jun/20jun-TEN-CRICKET-mailer.JPG"
@@ -31,13 +31,13 @@ export default class Home extends Component {
                             className="advertise__banner"
                         />
                     </div>
-                    <div className="col-lg-6 col-md-6 col-sm-12">
+                    <div className="col-lg-6 col-md-6 col-sm-12 pt-4 ">
                         <MainArticle />
                         <RandomArticle />
                     </div>
-                    <div className="col-lg-3 col-md-3 col-sm-12">
+                    <div className="col-lg-3 col-md-3 col-sm-12 pt-4 top__headlines">
                         <TopHeadings />
-                        <RandomVideo />
+                        <LatestCategory />
                     </div>
                 </div>
             </div>

@@ -24,8 +24,8 @@
 }
 
 .trending__videos {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .article__card {
@@ -201,6 +201,18 @@ h1 {
 }
 
 @media (max-width:763px) {
+    // .home__articles {
+    //     // -webkit-box-orient: vertical !important;
+    //     // -webkit-box-direction: reverse !important;
+    //     // -ms-flex-direction: column-reverse !important;
+    //     // flex-direction: column-reverse !important;
+    // }
+    .trending__videos {
+        display: none;
+    }
+    .categories__column {
+        display: none;
+    }
     .slick-slide {
         div {
             padding-right: 0rem !important;

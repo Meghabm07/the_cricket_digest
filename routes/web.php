@@ -100,6 +100,8 @@ Route::namespace('Website')->name('website.')->group(function () {
 
     Route::get('/all-articles', 'WebsiteController@allArticlePage')->name('allArticlePage');
 
+    Route::get('/videos', 'WebsiteController@allVideoPage')->name('allVideoPage');
+
     Route::get('/category-list', 'WebsiteController@getCategoryList')->name('getCategoryList');
 
     Route::get('/video/list', 'WebsiteController@getVideoList')->name('getVideoList');
@@ -114,9 +116,13 @@ Route::namespace('Website')->name('website.')->group(function () {
 
     Route::get('/related-article/{category}', 'WebsiteController@getRelatedArticle')->name('getRelatedArticle');
 
+    Route::get('/related-video/{category}', 'WebsiteController@getRelatedVideo')->name('getRelatedVideo');
+
     Route::get('/category-article', 'WebsiteController@getcategoryWiseArticle')->name('getcategoryWiseArticle');
+
+    Route::get('/category-video', 'WebsiteController@getcategoryWiseVideo')->name('getcategoryWiseVideo');
 
     Route::get('/article/{blog}/show', 'WebsiteController@getArticle')->name('getArticle');
 
-    Route::get('/search-article', 'WebsiteController@getAllArticle')->name('getAllArticle');
+    Route::post('/search-article', 'WebsiteController@getAllArticle')->name('getAllArticle');
 });

@@ -7,17 +7,25 @@
 .single__article__content {
     margin-bottom: 3rem;
     img {
-        width: 100%;
+        width: 80%;
     }
     iframe {
         height: 500px;
-        width: 100%;
+        width: 80% !important;
     }
 }
 
-@media(max-width:400px) {
-    .single__article__content iframe {
-        height: 200px;
-        width: 100%;
+@media(max-width:700px) {
+    .single__article__content {
+        .card-body{
+            
+    padding: 0.75rem !important;
+        }
+        img {
+            width: 100%;
+        }
+        iframe {
+            width: 100% !important;
+        }
     }
 }

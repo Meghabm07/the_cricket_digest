@@ -59,6 +59,9 @@ export default class Viewblog extends Component {
                             </button>
                         </div>
                         <div className="modal-body">
+                            <h5 className="modal-title" id="exampleModalLabel">
+                                {this.state.blogData.main_name}
+                            </h5>
                             <div
                                 dangerouslySetInnerHTML={this.createMarkup()}
                             />

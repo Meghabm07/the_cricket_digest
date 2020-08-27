@@ -2,7 +2,7 @@
       <div class="container-fluid pb-4">
           <div class="row pt-5">
               <div class="col-lg-4 col-md-6 col-sm-12">
-                  <h5 class="font-weight-bold mb-4">
+                  <h5 class="font-weight-bold mb-4 footer__heading">
                       <i class="text__base__color fa fa-user-circle" aria-hidden="true"></i> &nbsp; About Us</h5>
                   <div class="heading__divider"></div>
                   <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni harum voluptates!</p>
@@ -24,46 +24,54 @@
               </div>
               <div class="col-lg-4 col-md-6 col-sm-12">
 
-                  <h5 class="font-weight-bold mb-4"> <i class="text__base__color fa fa-newspaper-o"
+                  <h5 class="font-weight-bold mb-4 footer__heading"> <i class="text__base__color fa fa-newspaper-o"
                           aria-hidden="true"></i> &nbsp; Follow Us
                   </h5>
                   <div class="heading__divider"></div>
                   <div class="d-flex flex-column bd-highlight mb-3 footer__social__icons">
                       <div class="pr-2 bd-highlight">
-                          <a href="#"> <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                          <a href="https://www.facebook.com/TheCricketDigest/"> <i class="fa fa-facebook-official"
+                                  aria-hidden="true"></i>
                               &nbsp; <span>Like us on
                                   Facebook</span></a>
                       </div>
                       <div class="pr-2 pt-2 bd-highlight">
-                          <a href="#">
+                          <a href="https://www.youtube.com/c/TheCricketDigest">
                               <i class="fa fa-youtube-square" aria-hidden="true"></i> &nbsp; <span>Add us on
                                   Youtube</span>
                           </a>
                       </div>
                       <div class="pr-2 pt-2 bd-highlight">
-                          <a href="#">
-                              <i class="fa fa-twitter-square" aria-hidden="true"></i> &nbsp;<span> Follow us
+                          <a href="https://www.instagram.com/thecricketdigest/">
+                              <i class="fa fa-instagram" aria-hidden="true"></i> &nbsp;<span> Follow us
                                   on
-                                  Twitter</span>
+                                  Instagram</span>
                           </a>
                       </div>
                       <div class="pr-2 pt-2 bd-highlight">
-                          <a href="#">
-                              <i class="fa fa-quora" aria-hidden="true"></i> &nbsp; <span>Follow us on Quora</span>
+                          <a href="https://twitter.com/CrickDig">
+                              <i class="fa fa-twitter-square" aria-hidden="true"></i> &nbsp;<span> Follow us
+                                  on
+                                  Twitter</span>
                           </a>
                       </div>
                   </div>
               </div>
               <div class="col-lg-4 col-md-6 col-sm-12">
 
-                  <h5 class="font-weight-bold mb-4"><i class="text__base__color fa fa-picture-o" aria-hidden="true"></i>
+                  <h5 class="font-weight-bold mb-4 footer__heading"><i class="text__base__color fa fa-picture-o"
+                          aria-hidden="true"></i>
                       &nbsp; Support Us</h5>
                   <div class="heading__divider"></div>
 
                   <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam quia necessitatibus obcaecati
-                      dignissimos reprehenderit accusamus, officia eos voluptatem nesciunt aliquam, quibusdam velit
-                      laborum iusto, repellendus provident quasi numquam. Quibusdam, hic.
+                      Like our work?
+                  </p>
+                  <p>
+                      consider supporting us
+                      </br>
+                      <a href="#" class="btn btn-nav btn-sm">
+                          Click here</a>
                   </p>
               </div>
           </div>
@@ -71,7 +79,7 @@
       <div class="footer__bottom">
           <div class="d-flex justify-content-center align-items-center">
               <p class=" mb-0"><i class="fa fa-copyright" aria-hidden="true"></i> Copyrighted by <b
-                      class="text__black__color">The Cricket
+                      class="text__white__color">The Cricket
 
                       Digest</b></p>
           </div>

@@ -59,10 +59,12 @@ export default class RandomArticle extends Component {
                                                         .toString() + "..."}`
                                                 }}
                                             ></p>
-                                            <div className="article__author">
+                                            {/**
+                                         <div className="article__author">
                                                 Article By {random.user} |{" "}
                                                 {random.date}
                                             </div>
+                                        */}
                                         </div>
                                     </div>
                                 </a>

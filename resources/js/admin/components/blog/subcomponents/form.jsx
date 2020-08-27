@@ -10,6 +10,7 @@ class Form extends Component {
         this.state = {
             categoryList: [],
             name: "",
+            mainName: "",
             image: "",
             content: "",
             category: "",
@@ -70,6 +71,7 @@ class Form extends Component {
                 this.setState({
                     name: response.data.name,
                     content: response.data.content,
+                    mainName: response.data.main_name,
                     image: response.data.image,
                     category: response.data.category
                 });
@@ -96,6 +98,8 @@ class Form extends Component {
         };
 
         formData.append("name", this.state.name);
+
+        formData.append("mainName", this.state.mainName);
 
         formData.append("content", this.state.content);
 
@@ -186,6 +190,25 @@ class Form extends Component {
                             {this.state.errors ? (
                                 <span className="text-danger">
                                     {this.state.errors.name}
+                                </span>
+                            ) : null}
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="exampleInputName">
+                                Article Details Name
+                            </label>
+                            <input
+                                onChange={this.setValue}
+                                type="text"
+                                name="mainName"
+                                value={this.state.mainName}
+                                className="form-control"
+                                id="exampleInputName"
+                                placeholder="Enter Name"
+                            />
+                            {this.state.errors ? (
+                                <span className="text-danger">
+                                    {this.state.errors.mainName}
                                 </span>
                             ) : null}
                         </div>

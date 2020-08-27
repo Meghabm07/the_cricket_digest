@@ -236,7 +236,7 @@ class Table extends Component {
                                             <th>Category</th>
                                             <th>Blog Name</th>
                                             <th>Blog Image</th>
-                                            <th>Is Trending</th>
+                                            <th>Is Top Heading</th>
                                             <th>View</th>
                                             <th>Edit</th>
                                             <th>Delete</th>

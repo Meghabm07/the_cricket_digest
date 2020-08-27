@@ -50,6 +50,7 @@ class BlogController extends Controller
             $blog = Blogs::create([
                 'name' => $request->name,
                 'image' => $imageName,
+                'main_name' => $request->mainName,
                 'content' => $request->content,
                 'category_id' => $request->category,
                 'user_id' => auth()->user()->id
@@ -104,9 +105,11 @@ class BlogController extends Controller
         if ($blog) {
             return [
                 'name' => $blog->name,
+                'main_name' => $blog->main_name,
                 'category' => ['value' => $blog->category->id, 'label' => $blog->category->name],
                 'content' => $blog->content,
                 'image' => $blog->image,
+
             ];
         } else {
             return response()->json(['error' => 'Data not found'], 404);
@@ -118,6 +121,7 @@ class BlogController extends Controller
         if ($blog) {
             return [
                 'name' => $blog->name,
+                'main_name' => $blog->main_name,
                 'user' => $blog->user->name,
                 'category' => $blog->category->name,
                 'content' => $blog->content,
@@ -163,6 +167,7 @@ class BlogController extends Controller
                 'image' => $imageFileName,
                 'content' => $request->content,
                 'category_id' => $request->category,
+                'main_name' => $request->mainName,
             ]);
             return response()->json(['message' => $blog->name . ' Blog Updated Successfully'], 200);
         } catch (\Exception $e) {

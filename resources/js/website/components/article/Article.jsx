@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Categories from "../home/subcomponents/Categories";
 import RelatiedArticles from "./subcomponents/RelatedArticle";
-import TrendingVideos from "../home/subcomponents/TrendingVideos";
+import RelatedVideo from "./subcomponents/RelatedVideo";
 import ArticleContent from "./subcomponents/ArticleContent";
 
 export default class Article extends Component {
@@ -14,14 +14,16 @@ export default class Article extends Component {
     render() {
         return (
             <div className="container-fluid">
-                <TrendingVideos />
-                <div className="row">
+                <div className="row mt-5">
+                    <div className="col-lg-9 col-md-8 col-sm-12">
+                        <ArticleContent id={this.props.id} />
+                    </div>
                     <div className="col-lg-3 col-md-4 col-sm-12">
                         <Categories />
                         <RelatiedArticles categoryId={this.props.categoryId} />
                     </div>
-                    <div className="col-lg-9 col-md-8 col-sm-12">
-                        <ArticleContent id={this.props.id} />
+                    <div className="col-12 mb-4">
+                        <RelatedVideo categoryId={this.props.categoryId} />
                     </div>
                 </div>
             </div>

@@ -28,6 +28,14 @@ export default class RelatedArticle extends Component {
     render() {
         return (
             <div>
+                <div className="row mt-4">
+                    <div className="col-12">
+                        <h5 className="font-weight-bold category__title">
+                            Related Articles
+                        </h5>
+                    </div>
+                </div>
+
                 {this.state.relatedBlogs.map((article, i) => {
                     return (
                         <a href={`/article/${article.id}`} key={i}>

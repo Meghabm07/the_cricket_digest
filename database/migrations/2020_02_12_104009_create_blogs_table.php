@@ -18,6 +18,7 @@ class CreateBlogsTable extends Migration
             $table->integer('category_id')->index()->unsigned();
             $table->integer('user_id')->index()->unsigned();
             $table->string('name')->unique();
+            $table->string('main_name');
             $table->string('image');
             $table->longText('content');
             $table->char('is_most_view', 1)->default(0);

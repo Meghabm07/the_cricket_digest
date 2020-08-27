@@ -36,16 +36,8 @@ export default class ArticleContent extends Component {
             <div className="card single__article__content">
                 <div className="card-body">
                     <h4 className="single__article__title mb-0">
-                        {this.state.blogData.name}
+                        {this.state.blogData.main_name}
                     </h4>
-                    <div className="d-flex bd-highlight">
-                        <div className="mr-auto bd-highlight">
-                            <p>Author: {this.state.blogData.user}</p>
-                        </div>
-                        <div className="bd-highlight">
-                            <p>{this.state.blogData.date}</p>
-                        </div>
-                    </div>
                     <img
                         src={this.state.blogData.image}
                         alt=""
