@@ -54,11 +54,6 @@ export default class Category extends Component {
                     </div>
                     <div className="col-lg-3 col-md-4 col-sm-12">
                         <TopHeadings />
-                        <img
-                            src="https://www.indiantelevision.com/advt/general/mailer/y2k13/jun/20jun-TEN-CRICKET-mailer.JPG"
-                            alt=""
-                            className="advertise__banner"
-                        />
                     </div>
                 </div>
             </div>

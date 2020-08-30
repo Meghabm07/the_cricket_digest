@@ -3,7 +3,8 @@
           <div class="row pt-5">
               <div class="col-lg-4 col-md-6 col-sm-12">
                   <h5 class="font-weight-bold mb-4 footer__heading">
-                      <i class="text__base__color fa fa-user-circle" aria-hidden="true"></i> &nbsp; About Us</h5>
+                      <i class="text__base__color fa fa-user-circle" aria-hidden="true"></i> &nbsp; About Us
+                  </h5>
                   <div class="heading__divider"></div>
                   <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni harum voluptates!</p>
                   <div class="d-flex flex-column">
@@ -69,9 +70,6 @@
                   </p>
                   <p>
                       consider supporting us
-                      </br>
-                      <a href="#" class="btn btn-nav btn-sm">
-                          Click here</a>
                   </p>
               </div>
           </div>

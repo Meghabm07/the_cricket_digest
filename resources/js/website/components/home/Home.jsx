@@ -20,16 +20,6 @@ export default class Home extends Component {
                 <div className="row home__articles">
                     <div className="col-lg-3 col-md-3 col-sm-12 pt-4 categories__column">
                         <Categories />
-                        <img
-                            src="https://www.indiantelevision.com/advt/general/mailer/y2k13/jun/20jun-TEN-CRICKET-mailer.JPG"
-                            alt=""
-                            className="advertise__banner"
-                        />
-                        <img
-                            src="https://cricclubs.com/documentsRep/startup/939-startup.JPG"
-                            alt=""
-                            className="advertise__banner"
-                        />
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-12 pt-4 ">
                         <MainArticle />
