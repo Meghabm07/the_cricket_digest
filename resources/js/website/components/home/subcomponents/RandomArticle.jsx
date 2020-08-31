@@ -55,7 +55,11 @@ export default class RandomArticle extends Component {
                                                 className="article__small__description"
                                                 dangerouslySetInnerHTML={{
                                                     __html: `${random.content
-                                                        .substring(0, 110)
+                                                        .replace(
+                                                            /<p>(.*?)<\/p>/i,
+                                                            ""
+                                                        )
+                                                        .substring(0, 200)
                                                         .toString() + "..."}`
                                                 }}
                                             ></p>

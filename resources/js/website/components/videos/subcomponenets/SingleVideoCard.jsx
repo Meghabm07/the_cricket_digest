@@ -7,16 +7,14 @@ export default class SingleVideoCard extends Component {
     render() {
         return (
             <div className="article__card">
-                <div className="card h-auto">
+                <div className="card all__videos">
                     <iframe
                         src={this.props.videosData.video_url}
                         allow=""
                         frameBorder="0"
                     ></iframe>
                     <div className="card-body">
-                        <h6 className="font-weight-bold">
-                            {this.props.videosData.name}
-                        </h6>
+                        <h5 className="mb-0">{this.props.videosData.name}</h5>
                     </div>
                 </div>
             </div>

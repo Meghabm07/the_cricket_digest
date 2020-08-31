@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import TrendingVideos from "../home/subcomponents/TrendingVideos";
 import TopHeadings from "../home/subcomponents/TopHeadings";
 import SingleArticleCard from "../allarticle/subcomponenets/SingleArticleCard";
+import DocumentMeta from "react-document-meta";
 
 export default class Category extends Component {
     constructor(props) {
@@ -32,31 +33,44 @@ export default class Category extends Component {
     }
 
     render() {
+        const meta = {
+            title: this.props.name,
+            canonical: window.location.url,
+            meta: {
+                charset: "utf-8",
+                name: {
+                    keywords: "cricket,cricket digest"
+                }
+            }
+        };
         return (
-            <div className="container-fluid">
-                <TrendingVideos />
-                <div className="row mt-3">
-                    <div className="col-lg-9 col-md-8 col-sm-12">
-                        <div className="row">
-                            <div className="col-12">
-                                <h5 className="font-weight-bold category__title">
-                                    {this.props.name}
-                                </h5>
+            <DocumentMeta {...meta}>
+                <div className="container-fluid">
+                    <div className="row mt-3">
+                        <div className="col-lg-9 col-md-8 col-sm-12">
+                            <div className="row">
+                                <div className="col-12">
+                                    <h5 className="font-weight-bold category__title">
+                                        {this.props.name}
+                                    </h5>
+                                </div>
+                                {this.state.categoryBlog.map((blog, i) => {
+                                    return (
+                                        <div className="col-lg-4 p-2" key={i}>
+                                            <SingleArticleCard
+                                                blogsData={blog}
+                                            />
+                                        </div>
+                                    );
+                                })}
                             </div>
-                            {this.state.categoryBlog.map((blog, i) => {
-                                return (
-                                    <div className="col-lg-4 p-2" key={i}>
-                                        <SingleArticleCard blogsData={blog} />
-                                    </div>
-                                );
-                            })}
+                        </div>
+                        <div className="col-lg-3 col-md-4 col-sm-12">
+                            <TopHeadings />
                         </div>
                     </div>
-                    <div className="col-lg-3 col-md-4 col-sm-12">
-                        <TopHeadings />
-                    </div>
                 </div>
-            </div>
+            </DocumentMeta>
         );
     }
 }

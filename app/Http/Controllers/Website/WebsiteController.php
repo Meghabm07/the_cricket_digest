@@ -17,6 +17,11 @@ class WebsiteController extends Controller
         return view('website.home.index');
     }
 
+    public function supportUsPage()
+    {
+        return view('website.supportus.index');
+    }
+
     public function articlePage(Blogs $blog)
     {
         return view('website.article.index')->with(['blogId' => $blog->id, 'categoryId' => $blog->category_id]);
@@ -46,7 +51,7 @@ class WebsiteController extends Controller
         foreach ($categories as $key => $category) {
             $data[$key]['id'] = $category->id;
             $data[$key]['name'] = $category->name;
-            $data[$key]['image'] = Storage::url('images/category/' . $category->image);
+            $data[$key]['image'] = url('public_storage/images/category/' . $category->image);
         }
 
         return $data;
@@ -79,8 +84,9 @@ class WebsiteController extends Controller
             $data[$key]['id'] = $blog->id;
             $data[$key]['name'] = $blog->name;
             $data[$key]['content'] = $blog->content;
-            $data[$key]['image'] = Storage::url('images/blog/' . $blog->image);
+            $data[$key]['image'] = url('public_storage/images/blog/' . $blog->image);
             $data[$key]['user'] = $blog->user->name;
+            $data[$key]['url'] = $blog->user->facebook_url;
             $data[$key]['date'] = Carbon::createFromTimeStamp(strtotime($blog->created_at))->diffForHumans();
         }
 
@@ -114,8 +120,9 @@ class WebsiteController extends Controller
             $data[$key]['id'] = $blog->id;
             $data[$key]['name'] = $blog->name;
             $data[$key]['content'] = $blog->content;
-            $data[$key]['image'] = Storage::url('images/blog/' . $blog->image);
+            $data[$key]['image'] = url('/public_storage/images/blog/' . $blog->image);
             $data[$key]['user'] = $blog->user->name;
+            $data[$key]['url'] = $blog->user->facebook_url;
             $data[$key]['date'] = Carbon::createFromTimeStamp(strtotime($blog->created_at))->diffForHumans();
         }
 
@@ -132,7 +139,7 @@ class WebsiteController extends Controller
             $data[$key]['id'] = $blog->id;
             $data[$key]['name'] = $blog->name;
             $data[$key]['content'] = $blog->content;
-            $data[$key]['image'] = Storage::url('images/blog/' . $blog->image);
+            $data[$key]['image'] = url('public_storage/images/blog/' . $blog->image);
             $data[$key]['date'] = Carbon::createFromTimeStamp(strtotime($blog->created_at))->diffForHumans();
         }
 
@@ -156,15 +163,16 @@ class WebsiteController extends Controller
 
     public function getLatestArticle()
     {
-        $blogs = Blogs::latest('created_at')->take(3)->get();
+        $blogs = Blogs::latest('created_at')->take(10)->get();
 
         $data = [];
 
         foreach ($blogs as $key => $blog) {
             $data[$key]['id'] = $blog->id;
             $data[$key]['name'] = $blog->name;
-            $data[$key]['image'] = Storage::url('images/blog/' . $blog->image);
+            $data[$key]['image'] = url('public_storage/images/blog/' . $blog->image);
             $data[$key]['user'] = $blog->user->name;
+            $data[$key]['url'] = $blog->user->facebook_url;
             $data[$key]['content'] = $blog->content;
             $data[$key]['date'] = Carbon::createFromTimeStamp(strtotime($blog->created_at))->diffForHumans();
         }
@@ -182,8 +190,9 @@ class WebsiteController extends Controller
             $data[$key]['id'] = $blog->id;
             $data[$key]['name'] = $blog->name;
             $data[$key]['category_name'] = $blog->category->name;
-            $data[$key]['image'] = Storage::url('images/blog/' . $blog->image);
+            $data[$key]['image'] = url('public_storage/images/blog/' . $blog->image);
             $data[$key]['user'] = $blog->user->name;
+            $data[$key]['url'] = $blog->user->facebook_url;
             $data[$key]['content'] = $blog->content;
             $data[$key]['date'] = Carbon::createFromTimeStamp(strtotime($blog->created_at))->diffForHumans();
         }
@@ -223,8 +232,9 @@ class WebsiteController extends Controller
         $data['main_name'] = $blog->main_name;
         $data['category_name'] = $blog->category->name;
         $data['content'] = $blog->content;
-        $data['image'] = Storage::url('images/blog/' . $blog->image);
+        $data['image'] = url('public_storage/images/blog/' . $blog->image);
         $data['user'] = $blog->user->name;
+        $data['url'] = $blog->user->facebook_url;
         $data['date'] = Carbon::createFromTimeStamp(strtotime($blog->created_at))->diffForHumans();
 
         return $data;

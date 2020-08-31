@@ -28,7 +28,7 @@ export default class TopHeadings extends Component {
         return (
             <ul className="list-group">
                 <li className="list-group-item">
-                    <h6 className="font-weight-bold">Top Headlines</h6>
+                    <h6 className="font-weight-bold mb-0">Popular Articles</h6>
                 </li>
                 <li className="list-group-item pt-0">
                     <ul className="heading__list">

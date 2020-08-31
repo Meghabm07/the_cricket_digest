@@ -87,16 +87,17 @@ export default class TrendingVideos extends Component {
                                 className="article__card"
                                 key={i}
                             >
-                                <div className="card" key={i}>
+                                <div
+                                    className="card trending__videos__card"
+                                    key={i}
+                                >
                                     <iframe
                                         src={video.video_url}
                                         allow=""
                                         frameBorder="0"
                                     ></iframe>
                                     <div className="card-body d-flex align-items-center">
-                                        <h6 className="font-weight-bold">
-                                            {video.name}
-                                        </h6>
+                                        <h5 className=" mb-0">{video.name}</h5>
                                     </div>
                                 </div>
                             </a>

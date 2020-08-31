@@ -80,7 +80,7 @@ export default class RelatedVideo extends Component {
                 <Slider {...settings}>
                     {this.state.relatedVideos.map((video, i) => {
                         return (
-                            <a className="article__card" key={i}>
+                            <a className="article__card related__videos" key={i}>
                                 <div className="card" key={i}>
                                     <iframe
                                         src={video.video_url}
@@ -88,7 +88,7 @@ export default class RelatedVideo extends Component {
                                         frameBorder="0"
                                     ></iframe>
                                     <div className="card-body d-flex align-items-center">
-                                        <h6 className="font-weight-bold">
+                                        <h6 className="font-weight-bold  mb-0">
                                             {video.name}
                                         </h6>
                                     </div>

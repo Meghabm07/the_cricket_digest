@@ -44,8 +44,8 @@ class BlogController extends Controller
         try {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalName();
-            // Storage::putFileAs('/images/blog', $image, $imageName);
-            $image->move(public_path('storage/images/blog/'), $imageName);
+            // putFileAs('/images/blog', $image, $imageName);
+            $image->move(public_path('public_storage/images/blog/'), $imageName);
 
             $blog = Blogs::create([
                 'name' => $request->name,
@@ -76,14 +76,14 @@ class BlogController extends Controller
                 ->paginate($request->rowsCount);
 
             foreach ($blogDatas as $blog) {
-                $blog->image = Storage::url('images/blog/' . $blog->image);
+                $blog->image = url('public_storage/images/blog/' . $blog->image);
             }
         } else {
             $blogDatas = Blogs::with('category', 'user')->latest()
                 ->paginate($request->rowsCount);
 
             foreach ($blogDatas as $blog) {
-                $blog->image = Storage::url('images/blog/' . $blog->image);
+                $blog->image = url('public_storage/images/blog/' . $blog->image);
             }
         }
 
@@ -126,7 +126,7 @@ class BlogController extends Controller
                 'category' => $blog->category->name,
                 'content' => $blog->content,
                 'created_at' => Carbon::createFromTimeStamp(strtotime($blog->created_at))->diffForHumans(),
-                'image' => Storage::url('images/blog/' . $blog->image),
+                'image' => url('public_storage/images/blog/' . $blog->image),
             ];
         } else {
             return response()->json(['error' => 'Data not found'], 404);
@@ -147,12 +147,12 @@ class BlogController extends Controller
             if ($request->hasFile('image')) {
                 try {
 
-                    Storage::delete('images/blog/' . $blog->image);
+                    unlink('public_storage/images/blog/' . $blog->image);
 
                     $image = $request->file('image');
                     $imageName = time() . '.' . $image->getClientOriginalName();
-                    // Storage::putFileAs('/images/blog', $image, $imageName);
-                    $image->move(public_path('storage/images/blog/'), $imageName);
+                    // putFileAs('/images/blog', $image, $imageName);
+                    $image->move(public_path('public_storage/images/blog/'), $imageName);
 
                     $imageFileName = $imageName;
                 } catch (\Exception $e) {
@@ -191,7 +191,7 @@ class BlogController extends Controller
     {
         try {
             $name = $blog->name;
-            Storage::delete('images/blog/' . $blog->image);
+            unlink('public_storage/images/blog/' . $blog->image);
             $blog->delete();
             return response()->json(['message' => $name . ' Blog Deleted Successfully'], 200);
         } catch (\Exception $e) {

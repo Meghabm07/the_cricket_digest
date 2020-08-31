@@ -1,18 +1,28 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import Select from "react-dropdown-select";
-
+import $ from "jquery";
 export default class SearchBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            articles: []
+            articles: [],
+            isDropDownVisible: false
         };
         this.onSearch = this.onSearch.bind(this);
+        this.onBlur = this.onBlur.bind(this);
     }
-    componentDidMount() {}
+    componentDidMount() {
+        $("body").click(
+            function() {
+                this.setState({ isDropDownVisible: false, keywords: "" });
+            }.bind(this)
+        );
+    }
 
     onSearch(event) {
+        this.setState({
+            isDropDownVisible: true
+        });
         var data = {
             keywords: event.target.value
         };
@@ -29,6 +39,8 @@ export default class SearchBar extends Component {
             });
     }
 
+    onBlur() {}
+
     render() {
         var ui;
         if (this.state.articles.length > 0) {
@@ -37,7 +49,10 @@ export default class SearchBar extends Component {
                     {this.state.articles.map((article, i) => {
                         return (
                             <li key={i}>
-                                <a href={`/article/${article.id}`}>
+                                <a
+                                    href={`/article/${article.id}`}
+                                    onClick={() => console.log("k")}
+                                >
                                     {article.name.substr(0, 40)} ...
                                 </a>
                             </li>
@@ -64,10 +79,11 @@ export default class SearchBar extends Component {
                         type="search"
                         className="form-control"
                         id="search"
+                        onBlur={this.onBlur}
                         onKeyUp={() => this.onSearch(event)}
                         placeholder="Search..."
                     />
-                    {ui}
+                    {this.state.isDropDownVisible ? ui : null}
                 </div>
             </div>
         );

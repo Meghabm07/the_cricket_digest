@@ -6,20 +6,15 @@
                       <i class="text__base__color fa fa-user-circle" aria-hidden="true"></i> &nbsp; About Us
                   </h5>
                   <div class="heading__divider"></div>
-                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni harum voluptates!</p>
+                  <p>We Are The Cricket Digest</p>
                   <div class="d-flex flex-column">
                       <div class="">
                           <h6>
-                              <i class="fa fa-location-arrow text__base__color" aria-hidden="true"></i> &nbsp; #1234,
-                              2nd Floor Lorem Ipsum US 123456
+                              <i class="fa fa-envelope text__base__color" aria-hidden="true"></i> &nbsp;
+                              thecricketdigest@gmail.com
                           </h6>
                       </div>
-                      <div class="">
-                          <h6>
-                              <i class="fa fa-phone-square text__base__color" aria-hidden="true"></i> &nbsp; +(91)
-                              9876543210
-                          </h6>
-                      </div>
+
                   </div>
 
               </div>
@@ -69,8 +64,14 @@
                       Like our work?
                   </p>
                   <p>
-                      consider supporting us
+                      Consider supporting us
                   </p>
+
+                  <a href="/support-us">
+                      <button type="button" class="btn btn-nav btn-sm">
+                          Click Here
+                      </button>
+                  </a>
               </div>
           </div>
       </div>

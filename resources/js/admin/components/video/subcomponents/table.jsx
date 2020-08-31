@@ -106,7 +106,7 @@ class Table extends Component {
             })
             .catch(error => {
                 this.props.onActiveToster({
-                    message: error.response.data.message,
+                    message: error.response.data.error,
                     status: "error"
                 });
                 console.log(error.response.data);
@@ -227,6 +227,7 @@ class Table extends Component {
                                 <ConfirmDelete
                                     activeToaster={this.props.onActiveToster}
                                     videoId={this.state.videoId}
+                                    getVideos={this.getvideoData}
                                     videoName={this.state.videoName}
                                 />
                             </div>

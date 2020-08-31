@@ -42,8 +42,8 @@ class CategoryController extends Controller
         try {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalName();
-            // Storage::putFileAs('/images/category', $image, $imageName);
-            $image->move(public_path('storage/images/category/'), $imageName);
+            // putFileAs('/images/category', $image, $imageName);
+            $image->move(public_path('public_storage/images/category/'), $imageName);
 
             $category = Category::create([
                 'name' => $request->name,
@@ -70,14 +70,14 @@ class CategoryController extends Controller
                 ->paginate($request->rowsCount);
 
             foreach ($categoryDatas as $category) {
-                $category->image = Storage::url('images/category/' . $category->image);
+                $category->image = url('public_storage/images/category/' . $category->image);
             }
         } else {
             $categoryDatas = Category::latest()
                 ->paginate($request->rowsCount);
 
             foreach ($categoryDatas as $category) {
-                $category->image = Storage::url('images/category/' . $category->image);
+                $category->image = url('public_storage/images/category/' . $category->image);
             }
         }
 
@@ -117,12 +117,12 @@ class CategoryController extends Controller
             if ($request->hasFile('image')) {
                 try {
 
-                    Storage::delete('images/category/' . $category->image);
+                    unlink('public_storage/images/category/' . $category->image);
 
                     $image = $request->file('image');
                     $imageName = time() . '.' . $image->getClientOriginalName();
-                    // Storage::putFileAs('/images/category', $image, $imageName);
-                    $image->move(public_path('storage/images/category/'), $imageName);
+                    // putFileAs('/images/category', $image, $imageName);
+                    $image->move(public_path('public_storage/images/category/'), $imageName);
 
                     $imageFileName = $imageName;
                 } catch (\Exception $e) {
@@ -153,7 +153,7 @@ class CategoryController extends Controller
     {
         try {
             $name = $category->name;
-            Storage::delete('images/category/' . $category->image);
+            unlink('public_storage/images/category/' . $category->image);
             $category->delete();
             return response()->json(['message' => $name . ' Category Deleted Successfully'], 200);
         } catch (\Exception $e) {

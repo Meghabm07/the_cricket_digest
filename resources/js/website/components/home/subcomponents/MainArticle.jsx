@@ -43,7 +43,9 @@ export default class MainArticle extends Component {
                                     alt=""
                                 />
                                 <div className="card-body">
-                                    <h5>{article.name}</h5>
+                                    <h5 className="mb-0 font-weight-bold">
+                                        {article.name}
+                                    </h5>
                                 </div>
                             </div>
                         </a>

@@ -17,12 +17,13 @@ export default class Confirmdelete extends Component {
                     message: response.data.message,
                     status: "success"
                 });
+                this.props.getBlogs();
                 $("#confirmModel").modal("hide");
             })
             .catch(error => {
                 if (error.response.data) {
                     this.props.activeToaster({
-                        message: error.response.data.message,
+                        message: error.response.data.error,
                         status: "error"
                     });
                 }

@@ -41,8 +41,8 @@ export default class LatestCategory extends Component {
                                     src={category.image}
                                     alt=""
                                 />
-                                <div className="card-body d-flex align-items-center ">
-                                    <h5 className="card-title mb-0">
+                                <div className="card-body pt-0 d-flex align-items-center ">
+                                    <h5 className="card-title mb-0 font-weight-bold">
                                         {category.name}
                                     </h5>
                                 </div>

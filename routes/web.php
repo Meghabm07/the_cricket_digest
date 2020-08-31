@@ -93,6 +93,7 @@ Route::namespace('Admin')->middleware(['auth'])->name('admin.')->prefix('admin')
 Route::namespace('Website')->name('website.')->group(function () {
 
     Route::get('/', 'WebsiteController@homePage')->name('homePage');
+    Route::get('/support-us', 'WebsiteController@supportUsPage')->name('supportUsPage');
 
     Route::get('/article/{blog}', 'WebsiteController@articlePage')->name('articlePage');
 

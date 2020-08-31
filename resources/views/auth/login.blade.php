@@ -30,7 +30,7 @@
 </head>
 
 <body class="hold-transition login-page"
-    style="background:url('/storage/images/website/stadium.jpg');background-size:cover;">
+    style="background:url('/public_storage/images/website/stadium.jpg');background-size:cover;">
     <div class="login-box">
 
         <!-- /.login-logo -->
@@ -38,7 +38,8 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">
                     <a href="/">
-                        <img src="{{ URL::to('/') }}/storage/images/website/logo.png" style="width:80%" alt="logo" />
+                        <img src="{{ URL::to('/') }}/public_storage/images/website/logo.png" style="width:80%"
+                            alt="logo" />
                     </a>
                 </p>
 

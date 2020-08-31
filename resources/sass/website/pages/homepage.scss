@@ -28,6 +28,10 @@
     margin-bottom: 1rem;
 }
 
+.trending__videos__card {
+    min-height: 240px !important;
+}
+
 .article__card {
     &:hover {
         text-decoration: none;

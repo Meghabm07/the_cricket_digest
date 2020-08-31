@@ -20,7 +20,7 @@ class Blogs extends Model
      *
      * @var array
      */
-    protected $fillable = ['content', 'is_most_view', 'is_trending', 'category_id', 'user_id', 'name', 'image'];
+    protected $fillable = ['content', 'is_most_view', 'is_trending', 'category_id', 'user_id', 'name', 'main_name', 'image'];
 
     /**
      * This method will return blogs  of this category

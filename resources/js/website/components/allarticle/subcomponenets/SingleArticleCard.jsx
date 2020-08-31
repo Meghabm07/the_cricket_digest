@@ -17,13 +17,14 @@ export default class SingleArticleCard extends Component {
                         alt=""
                     />
                     <div className="card-body">
-                        <h6 className="font-weight-bold">
+                        <h5 className="font-weight-bold">
                             {this.props.blogsData.name}
-                        </h6>
+                        </h5>
                         <p
                             className="article__small__description"
                             dangerouslySetInnerHTML={{
                                 __html: `${this.props.blogsData.content
+                                    .replace(/<p(.*?)<\/p>/i, "")
                                     .substring(0, 110)
                                     .toString() + "..."}`
                             }}

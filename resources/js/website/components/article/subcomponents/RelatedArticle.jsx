@@ -39,14 +39,14 @@ export default class RelatedArticle extends Component {
                 {this.state.relatedBlogs.map((article, i) => {
                     return (
                         <a href={`/article/${article.id}`} key={i}>
-                            <div className="card mt-4">
+                            <div className={i > 0 ? "card mt-4" : "card"}>
                                 <img
                                     className="card-img-top p-3"
                                     src={article.image}
                                     alt=""
                                 />
-                                <div className="card-body d-flex align-items-center pt-0 pb-0">
-                                    <h6 className="card-title">
+                                <div className="card-body d-flex align-items-center pt-0">
+                                    <h6 className="card-title  mb-0">
                                         {article.name}
                                     </h6>
                                 </div>

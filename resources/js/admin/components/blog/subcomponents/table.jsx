@@ -46,7 +46,7 @@ class Table extends Component {
             })
             .catch(error => {
                 this.props.onActiveToster({
-                    message: error.response.data.message,
+                    message: error.response.data.error,
                     status: "error"
                 });
                 console.log(error.response.data);
@@ -247,6 +247,7 @@ class Table extends Component {
                                 <ConfirmDelete
                                     activeToaster={this.props.onActiveToster}
                                     blogId={this.state.blogId}
+                                    getBlogs={this.getblogData}
                                     blogName={this.state.blogName}
                                 />
                                 <Viewblog blogId={this.state.blogId} />

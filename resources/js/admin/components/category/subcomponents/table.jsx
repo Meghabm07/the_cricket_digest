@@ -182,6 +182,7 @@ class Table extends Component {
                                 <ConfirmDelete
                                     activeToaster={this.props.onActiveToster}
                                     categoryId={this.state.categoryId}
+                                    getCategories={this.getCategoryData}
                                     categoryName={this.state.categoryName}
                                 />
                             </div>
